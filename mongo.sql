@@ -80,3 +80,34 @@ db.pessoas.find(
       { calçado: {$ne: 40} }, /* calçado NÃO IGUAL - ne a 40 */
       { nome:1, sexo:1, calçado:1, _id:0}
 )
+
+//Listando o nome, sexo, calçado das pessoas que não calçam <= 40
+db.pessoas.find(
+      { calçado: {$lte: 40} }, /* calçado MENOR OU IGUAL- ne a 40 */
+      { nome:1, sexo:1, calçado:1, _id:0}
+)
+
+//Listando o nome, sexo, calçado das pessoas que não calçam <= 40
+db.pessoas.find(
+      { calçado: {$lte: 40} }, /* calçado MENOR OU IGUAL- ne a 40 */
+      { nome:1, sexo:1, calçado:1, _id:0,"endereço.cidade":1}
+)
+.
+//Listando todas as pessoa do sexo feminino **E** com o caçado >=38
+db.pessoas.find(
+  {$and: [
+     {calçado: {$gte:34}},
+     {sexo: {$eq: "Feminino"}}
+  ]},
+ {}
+)
+
+//Listando o nome, cidade, estado e totalVendas de todas as pessoas // com o totalVendas >= 9000 e que são do estado de SP
+
+db.pessoas.find(
+   {$and: [{totalVendas: {$gte:9000}},{"endereço.uf": {$eq: "SP"}}]
+   },
+   {
+     nome:1, "endereço.cidade":1, "endereço.uf":1, totalVendas:1
+   }
+)
