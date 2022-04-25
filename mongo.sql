@@ -111,3 +111,30 @@ db.pessoas.find(
      nome:1, "endereço.cidade":1, "endereço.uf":1, totalVendas:1
    }
 )
+
+db.pessoas.find(
+   {$or: [{totalVendas: {$gte:9000}},{"endereço.uf": {$eq: "SP"}}]
+   },
+   {
+     nome:1, "endereço.cidade":1, "endereço.uf":1, totalVendas:1
+   }
+)
+
+//Listando o nome,sexo, calçado das pessoas que são do sexo feminino/F ou //calçado seja 36,38 pu 40
+
+db.pessoas.find(
+  {$or: [
+    {calçado: {$in: [36,38,40]}},
+    {sexo: /f/i}
+  ]},
+  {_id:0, nome:1, sexo:1, calçado:1}
+)
+
+db.pessoas.find(
+  {$or: [
+    {calçado: {$in: [36,38,40]}},
+    {sexo: /f/i}
+  ]},
+  {_id:0, nome:1, sexo:1, calçado:1}
+).sort({nome:1, sexo:1}) /*ordenando por nome e sexo */
+
