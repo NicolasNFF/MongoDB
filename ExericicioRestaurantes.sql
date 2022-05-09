@@ -126,10 +126,32 @@ db.restaurantes.find({"bairro":"Bronx",
                       $or: [
                         {"cozinha":"American "},
                         {"cozinha":"Chinese"}
-                      ]},{"nome":1, "cozinha":1, "_id":0})
+                      ]},{"nome":1,"cozinha":1, "_id":0})
 
 //18.  Defina a query NoSQL para exibir o Id, nome, bairro e cozinha detodos os restaurantes que estão em um dos seguintes bairros: StatenIsland, Queens, Bronx ou Brooklyn.  (utilize o operador $in)
-
+use('db_restaurantes')
+db.restaurantes.find({"bairro": {$in: 
+                                  ["Staten Island", "Queens",
+                                  "Bronx", "Brooklyn"]
+                                  }}, 
+                                  {nome:1, 
+                                  bairro:1, 
+                                  cozinha:1}})
 
 //19. Defina a query NoSQL para exibir o Id, nome, bairro e cozinha detodos os restaurantes que não estão em um dos seguintes bairros: StatenIsland, Queens, Bronx ou Brooklyn. (utilize o operador $nin)
+use('db_restaurantes')
+db.restaurantes.find({"bairro": {$nin: 
+                                  ["Staten Island", "Queens",
+                                  "Bronx", "Brooklyn"]
+                                  }}, 
+                                  {nome:1, 
+                                  bairro:1, 
+                                  cozinha:1}})
 
+//20. Defina a query NoSQL para exibir o Id, nome, bairro e cozinha detodos os restaurantes que não conseguiram obter pontos na avaliaçãomaior que 10.
+use('db_restaurantes')
+db.restaurantes.find({"avaliações.pontos": {$not: {$gt: 10}}},
+                      {nome:1, 
+                      bairro:1, 
+                      cozinha:1,
+                      "avaliações.pontos":1})
